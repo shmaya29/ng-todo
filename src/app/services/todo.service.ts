@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class TodoService {
   private mock: ITodo[] = [
     {
+      id: 1,
       title: 'Lion, mountain',
       description: 'Felis concolor',
       isCompleted: false,
@@ -16,6 +17,7 @@ export class TodoService {
       selected: true
     },
     {
+      id: 2,
       title: 'Kelp gull',
       description: 'Larus dominicanus',
       isCompleted: false,
@@ -24,6 +26,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 3,
       title: 'Golden-mantled ground squirrel',
       description: 'Spermophilus lateralis',
       isCompleted: false,
@@ -32,6 +35,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 4,
       title: 'Savanna fox',
       description: 'Dusicyon thous',
       isCompleted: false,
@@ -40,6 +44,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 5,
       title: 'Lion, mountain',
       description: 'Felis concolor',
       isCompleted: false,
@@ -48,6 +53,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 6,
       title: 'Kelp gull',
       description: 'Larus dominicanus',
       isCompleted: false,
@@ -56,6 +62,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 7,
       title: 'Golden-mantled ground squirrel',
       description: 'Spermophilus lateralis',
       isCompleted: false,
@@ -64,6 +71,7 @@ export class TodoService {
       selected: false
     },
     {
+      id: 8,
       title: 'Savanna fox',
       description: 'Dusicyon thous',
       isCompleted: false,

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ITodo } from '../modules/todo.interface';
+
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ITodo } from '../modules/todo.interface';
 
 @Injectable({
   providedIn: 'root',

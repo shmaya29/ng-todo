@@ -12,23 +12,23 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class NewTodoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-
+  
   public minDate: Date = new Date()
 
   constructor(public dialog: MatDialog, private todoService: TodoService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   public onNewTodoSubmit(): void {
     if (this.form.valid) {
       const formValue = this.form.form.value;
-
+     
       const newTodo: ITodo = {
         id: uuidv4(),
         title: formValue.title,
         description: formValue.description,
         isCompleted: false,
         isArchived: false,
-        endDate: formValue.Date,
+        endDate: formValue.date,
         selected: false,
       };
 

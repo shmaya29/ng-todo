@@ -1,5 +1,4 @@
-import { Injectable, signal } from '@angular/core';
-
+import { Injectable} from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ITodo } from '../modules/todo.interface';
 

@@ -8,8 +8,11 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
+  
+  
   @Input() set todo(todo: ITodo) {
     this._todo = todo;
+    console.log(todo.endDate);
   }
 
   get todo() {

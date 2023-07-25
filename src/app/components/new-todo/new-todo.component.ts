@@ -7,7 +7,6 @@ import { ITodo } from 'src/app/modules/todo.interface';
 import { TodoService } from 'src/app/services/todo.service';
 import { v4 as uuidv4 } from 'uuid';
 
-
 @Component({
   selector: 'app-new-todo',
   templateUrl: './new-todo.component.html',
@@ -20,21 +19,21 @@ export class NewTodoComponent implements OnInit {
   ngOnInit(): void {}
 
   public onNewTodoSubmit(): void {
-    const formValue = this.form.form.value;
+    if (this.form.valid) {
+      const formValue = this.form.form.value;
 
-    const newTodo: ITodo = {
-      id: uuidv4(),
-      title: formValue.title,
-      description: formValue.description,
-      isCompleted: false,
-      isArchived: false,
-      endDate: formValue.Date,
-      selected: false,
-    };
+      const newTodo: ITodo = {
+        id: uuidv4(),
+        title: formValue.title,
+        description: formValue.description,
+        isCompleted: false,
+        isArchived: false,
+        endDate: formValue.Date,
+        selected: false,
+      };
 
-    this.todoService.addNewTodo(newTodo);
-    this.dialog.closeAll()
-    console.log('on submit');
-    console.log(this.form);
+      this.todoService.addNewTodo(newTodo);
+      this.dialog.closeAll();
+    }
   }
 }

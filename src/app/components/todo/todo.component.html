@@ -5,13 +5,15 @@
   </mat-card-header>
 
   <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onCompleteTodo(todo)">
-      {{ todo.isCompleted ? 'unComplete' : 'Complete' }}
+    <button mat-raised-button color="primary" (click)="onCompleteTodo(todo)">
+      {{ todo.isCompleted ? "unComplete" : "Complete" }}
     </button>
     <button mat-raised-button color="warn" (click)="OnArchivedTodo()">
       Archive
     </button>
-    <button mat-raised-button color="accent" >Delete</button>
+    <button mat-raised-button color="accent" (click)="OnDeleteTodo()">
+      Delete
+    </button>
   </mat-card-actions>
 
   <app-count-down [dDay]="todo.endDate"></app-count-down>

@@ -45,8 +45,4 @@ export class TodoContainerComponent implements OnInit, OnDestroy {
       console.log('The dialog was closed');
     });
   }
-  public deleteAll():void{
-    if(confirm("are you sure you want to delete all???"))
-    localStorage.clear();
-  }
 }

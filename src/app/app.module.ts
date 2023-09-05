@@ -11,15 +11,27 @@ import { TodoComponent } from './components/todo/todo.component';
 import { NewTodoComponent } from './components/new-todo/new-todo.component';
 import { TodoContainerComponent } from './todo-container/todo-container.component';
 import { CountDownComponent } from './components/count-down/count-down.component';
+import { ArchiveComponent } from './components/archive/archive.component';
+import RouteConfig from './routes';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, TodoListComponent, HeaderComponent, TodoComponent, NewTodoComponent, TodoContainerComponent, CountDownComponent],
+  declarations: [
+    AppComponent,
+    TodoListComponent,
+    HeaderComponent,
+    TodoComponent,
+    NewTodoComponent,
+    TodoContainerComponent,
+    CountDownComponent,
+    ArchiveComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-   
+    RouterModule.forRoot(RouteConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],

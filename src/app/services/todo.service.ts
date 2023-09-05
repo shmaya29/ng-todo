@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ITodo } from '../modules/todo.interface';
 
@@ -42,7 +42,6 @@ export class TodoService {
 
   public addNewTodo(newTodo: ITodo): void {
     console.log(newTodo);
-
     const existingTodos: Array<ITodo> = this._todoSubject.value;
     existingTodos.push(newTodo);
     this._todoSubject.next(existingTodos);
@@ -57,6 +56,15 @@ export class TodoService {
     existingTodos[todoIndex][action] = true;
     localStorage.setItem('todos', JSON.stringify(existingTodos));
   }
-
-  
+  public deleteTodoById(todoId: string): void {
+    const existingTodos: Array<ITodo> = this._todoSubject.value;
+    const todoIndex = existingTodos.findIndex(
+      (singleTodo) => singleTodo.id === todoId
+    );
+    if (todoIndex !== -1) {
+      existingTodos.splice(todoIndex, 1);
+      localStorage.setItem('todos', JSON.stringify(existingTodos));
+      this._todoSubject.next(existingTodos);
+    }
+  }
 }

@@ -3,7 +3,6 @@
     <mat-card
       (click)="OnTodoClick(item, i)"
       [ngClass]="{ selected: item.selected, completed: item.isCompleted }"
-      *ngIf="!item.isArchived"
     >
       <mat-card-title>{{ item.title }}</mat-card-title>
       <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>

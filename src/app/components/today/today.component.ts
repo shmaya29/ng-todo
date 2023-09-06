@@ -5,12 +5,13 @@ import { Subscription } from 'rxjs';
 import { ITodo } from 'src/app/modules/todo.interface';
 
 @Component({
-  selector: 'app-archive',
-  templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.scss'],
+  selector: 'app-today',
+  templateUrl: './today.component.html',
+  styleUrls: ['./today.component.scss']
 })
 
-export class ArchiveComponent implements OnInit, OnDestroy {
+
+export class TodayComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   todos: Array<ITodo> = [];
 
@@ -35,7 +36,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
     );
 
     this.subscription.add(
-      this.todoService.getArchivedTodos().subscribe((data) => {
+      this.todoService.getTodayTodos().subscribe((data) => {
         this.todos = data;
       })
     );

@@ -32,14 +32,28 @@ export class TodoComponent implements OnInit {
     }
   }
 
-  public OnArchivedTodo(): void {
-    this.todo.isArchived = true;
-    this.todoService.onTodoAction(this.todo.id, 'is Archived');
+  public OnArchivedTodo(todo: ITodo): void {
+    if(confirm("are you sure you want to archived this Todo?")){
+    this.todo.isArchived = !this.todo.isArchived;
+    if (todo.isArchived) {
+      this.todoService.onTodoAction(this.todo.id, 'is archived');
+    } else {
+      this.todoService.onTodoAction(this.todo.id, 'is unArchived');
+    }
   }
+  }
+  
+ /* public OnArchivedTodo(): void {
+    this.todo.isArchived = !this.todo.isArchived;
+  const actionText = this.todo.isArchived ? 'Archived' : 'UnArchived';
+  this.todoService.onTodoAction(this.todo.id, `is ${actionText}`);
+  }*/
 
   public OnDeleteTodo(): void {
     if(confirm("are you sure you want to delete this Todo?")){
     this.todoService.deleteTodoById(this.todo.id);
     this._todo = null;
   }}
+
+  
 }

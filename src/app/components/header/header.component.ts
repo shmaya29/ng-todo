@@ -20,4 +20,8 @@ export class HeaderComponent {
   public openHome():void{
     this.router.navigate(['']);
   }
+
+  public openToday():void{
+    this.router.navigate(['/today']);
+  }
 }

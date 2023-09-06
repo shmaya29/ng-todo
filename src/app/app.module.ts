@@ -14,6 +14,7 @@ import { CountDownComponent } from './components/count-down/count-down.component
 import { ArchiveComponent } from './components/archive/archive.component';
 import RouteConfig from './routes';
 import { RouterModule } from '@angular/router';
+import { TodayComponent } from './components/today/today.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     TodoContainerComponent,
     CountDownComponent,
     ArchiveComponent,
+    TodayComponent,
   ],
   imports: [
     BrowserModule,

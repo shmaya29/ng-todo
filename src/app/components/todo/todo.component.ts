@@ -8,14 +8,19 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
+  
   @Input() set todo(todo: ITodo) {
     this._todo = todo;
-    console.log(todo.endDate);
-  }
 
+  }
+  @Input() todos: Array<ITodo> = [];
   get todo() {
     return this._todo;
   }
+
+  /*getTodo() {
+    return this._todo;
+  }*/
 
   private _todo: ITodo;
 
@@ -24,6 +29,7 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {}
 
   public onCompleteTodo(todo: ITodo): void {
+    
     todo.isCompleted = !todo.isCompleted;
     if (todo.isCompleted) {
       this.todoService.onTodoAction(this.todo.id, 'is completed');

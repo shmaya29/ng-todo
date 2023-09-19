@@ -9,8 +9,9 @@
       matInput
       placeholder="what is your task"
     />
-    <mat-error *ngIf="f.submitted && f.controls.title?.invalid" 
-    >Title Is Required</mat-error>
+    <mat-error *ngIf="f.submitted && f.controls.title?.invalid"
+      >Title Is Required</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -22,8 +23,9 @@
       matInput
       placeholder="what is your task"
     />
-    <mat-error *ngIf="f.submitted && f.controls.title?.invalid" 
-    >Title Is Required</mat-error>
+    <mat-error *ngIf="f.submitted && f.controls.title?.invalid"
+      >Title Is Required</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -38,8 +40,8 @@
     />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <mat-error *ngIf="f.submitted && f.controls.date?.invalid" 
-    >Title Is Required</mat-error
+    <mat-error *ngIf="f.submitted && f.controls.date?.invalid"
+      >Title Is Required</mat-error
     >
   </mat-form-field>
 

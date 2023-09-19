@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ITodo } from 'src/app/modules/todo.interface';
 import { TodoService } from 'src/app/services/todo.service';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-new-todo',
@@ -23,7 +23,7 @@ export class NewTodoComponent implements OnInit {
       const formValue = this.form.form.value;
      
       const newTodo: ITodo = {
-        id: uuidv4(),
+        id:'',
         title: formValue.title,
         description: formValue.description,
         isCompleted: false,

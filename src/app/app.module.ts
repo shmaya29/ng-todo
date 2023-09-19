@@ -16,6 +16,9 @@ import RouteConfig from './routes';
 import { RouterModule } from '@angular/router';
 import { TodayComponent } from './components/today/today.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +36,7 @@ import { TodayComponent } from './components/today/today.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
     RouterModule.forRoot(RouteConfig),
   ],
   providers: [],

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from 'src/app/services/todo.service';
 import { Subscription } from 'rxjs';
 import { ITodo } from 'src/app/modules/todo.interface';
-
+import { TodoContainerComponent } from 'src/app/todo-container/todo-container.component';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
@@ -12,30 +12,25 @@ import { ITodo } from 'src/app/modules/todo.interface';
 
 export class ArchiveComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  todos: Array<ITodo> = [];
+  //todos: Array<ITodo> = [];
 
   @Input() set todo(todo: ITodo) {
     this._todo = todo;
-    console.log(todo.endDate);
-  }
 
+  }
+  @Input() todos: Array<ITodo> = [];
   get todo() {
+  
     return this._todo;
   }
 
   private _todo: ITodo;
 
-  constructor(public dialog: MatDialog, private todoService: TodoService) {}
+  constructor( private todoService: TodoService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.subscription.add(
-      this.todoService.getSelectedTodo().subscribe((data) => {
-        this.todo = data;
-      })
-    );
-
-    this.subscription.add(
-      this.todoService.getArchivedTodos().subscribe((data) => {
+      (await this.todoService.getTodos()).subscribe((data) => {
         this.todos = data;
       })
     );

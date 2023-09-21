@@ -3,7 +3,6 @@ import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ITodo } from 'src/app/modules/todo.interface';
 import { TodoService } from 'src/app/services/todo.service';
-//import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-new-todo',
@@ -12,18 +11,18 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class NewTodoComponent implements OnInit {
   @ViewChild('f') form: NgForm;
-  
-  public minDate: Date = new Date()
+
+  public minDate: Date = new Date();
 
   constructor(public dialog: MatDialog, private todoService: TodoService) {}
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public onNewTodoSubmit(): void {
     if (this.form.valid) {
       const formValue = this.form.form.value;
-     
+
       const newTodo: ITodo = {
-        id:'',
+        id: '',
         title: formValue.title,
         description: formValue.description,
         isCompleted: false,

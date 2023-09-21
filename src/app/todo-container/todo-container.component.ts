@@ -16,9 +16,7 @@ export class TodoContainerComponent implements OnInit, OnDestroy {
   public todo: ITodo;
   public todos: ITodo[];
 
-  constructor(public dialog: MatDialog, private todoService: TodoService) {
-    
-  }
+  constructor(public dialog: MatDialog, private todoService: TodoService) {}
 
   async ngOnInit(): Promise<void> {
     this.subscription.add(

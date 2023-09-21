@@ -1,6 +1,5 @@
 export interface ITodo {
   [x: string]: any;
-  //[x: string]: any;
   id?: string;
   title: string;
   description: string;

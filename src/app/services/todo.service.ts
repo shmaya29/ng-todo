@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ITodo } from '../modules/todo.interface';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +10,6 @@ import { firstValueFrom } from 'rxjs';
 })
 export class TodoService {
   apiURL = 'http://localhost:5141/api/Todos';
-  apiURLDelete = 'http://localhost:5141/api/Todos/DeleteAll'
   constructor(private http: HttpClient) {}
 
   private todos: Array<ITodo> = [];
@@ -43,52 +42,42 @@ export class TodoService {
     );
   }
 
-  public addNewTodo(newTodo: ITodo): void {
-    this.http.post(this.apiURL, newTodo).subscribe();
-  }
-
-  /* public getTodos(): Observable<Array<ITodo>> {
+  public async getArchiveTodos(): Promise<Observable<ITodo[]>> {
     if (!this._todoSubject.value.length) {
-      const todosString = localStorage.getItem('todos');
-      if (todosString) {
-        const existingTodos: Array<ITodo> = JSON.parse(todosString);
-        existingTodos[0].selected = true;
-        this._todoSubject.next(existingTodos);
-        this._singleTodoSubject.next(existingTodos[0]);
-      }
-    }
-    return this._todoSubject.pipe(
-      map((todos) => todos.filter((item) => item.isArchived === false))
-    );
-  }*/
-
-  /*public getArchivedTodos(): Observable<Array<ITodo>> {
-    if (!this._todoSubject.value.length) {
-      const todosString = localStorage.getItem('todos');
-      if (todosString) {
-        const existingTodos: Array<ITodo> = JSON.parse(todosString);
-        existingTodos[0].selected = true;
-        this._todoSubject.next(existingTodos);
-        this._singleTodoSubject.next(existingTodos[0]);
+      try {
+        const todosFromApi: Array<ITodo> = await firstValueFrom(
+          this.http.get<Array<ITodo>>(this.apiURL)
+        );
+        if (todosFromApi && todosFromApi.length) {
+          todosFromApi[0].selected = true;
+          this._todoSubject.next(todosFromApi);
+          this._singleTodoSubject.next(todosFromApi[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching todos:', error);
       }
     }
     return this._todoSubject.pipe(
       map((todos) => todos.filter((item) => item.isArchived === true))
     );
-  }*/
+  }
 
-  public getTodayTodos(): Observable<Array<ITodo>> {
+  public async getTodayTodos(): Promise<Observable<ITodo[]>> {
     if (!this._todoSubject.value.length) {
-      const todosString = localStorage.getItem('todos');
-      if (todosString) {
-        const existingTodos: Array<ITodo> = JSON.parse(todosString);
-        existingTodos[0].selected = true;
-        this._todoSubject.next(existingTodos);
-        this._singleTodoSubject.next(existingTodos[0]);
+      try {
+        const todosFromApi: Array<ITodo> = await firstValueFrom(
+          this.http.get<Array<ITodo>>(this.apiURL)
+        );
+        if (todosFromApi && todosFromApi.length) {
+          todosFromApi[0].selected = true;
+          this._todoSubject.next(todosFromApi);
+          this._singleTodoSubject.next(todosFromApi[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching todos:', error);
       }
     }
     const currentDate = new Date();
-
     return this._todoSubject.pipe(
       map((todos) =>
         todos.filter((item) => {
@@ -103,6 +92,11 @@ export class TodoService {
     );
   }
 
+  public addNewTodo(newTodo: ITodo): void {
+    this.http.post(this.apiURL, newTodo).subscribe();
+  }
+
+  
   public getSelectedTodo(): Observable<ITodo> {
     return this._singleTodoSubject.asObservable();
   }
@@ -110,6 +104,7 @@ export class TodoService {
   public setSelectedTodo(todo: ITodo): void {
     this._singleTodoSubject.next(todo);
   }
+
 
   public async onTodoAction(todoId: string, action: string): Promise<void> {
     const existingTodo = this._todoSubject.value.find(
@@ -122,7 +117,7 @@ export class TodoService {
     const updatedTodo = { ...existingTodo, [action]: true };
     try {
       // Using the HttpClient with await
-      await this.http.put(`${this.apiURL}/${todoId}`, updatedTodo).toPromise();
+      await this.http.put(`${this.apiURL}/${todoId}`, updatedTodo).subscribe();
       // If the above line succeeds, then update the local state.
       const updatedTodos = this._todoSubject.value.map((todo) =>
         todo.id === todoId ? updatedTodo : todo
@@ -134,16 +129,7 @@ export class TodoService {
     }
   }
 
-  /* public onTodoAction(todoId: string, action: string): void {
-    const existingTodos: Array<ITodo> = this._todoSubject.value;
-    const todoIndex = existingTodos.findIndex(
-      (singleTodo) => singleTodo.id === todoId
-    );
-    existingTodos[todoIndex][action] = true;
-    this._todoSubject.next(existingTodos);
-    localStorage.setItem('todos', JSON.stringify(existingTodos));
-  }*/
-
+  
   public deleteTodoById(todoId: string): void {
     const existingTodos: Array<ITodo> = this._todoSubject.value;
     const todoIndex = existingTodos.findIndex(
@@ -163,13 +149,7 @@ export class TodoService {
     }
   }
 
-  public deleteAllTodoList():void{
-    console.log("test 1");
-    this.http.delete(this.apiURLDelete).subscribe();
-
-    console.log("test 2");
+  public deleteAllTodoList(): void {
+    this.http.delete(this.apiURL + '/DeleteAll').subscribe();
   }
-  /*function next() {
-  throw new Error('Function not implemented.');
-}*/
 }

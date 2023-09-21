@@ -12,8 +12,7 @@ export class HeaderComponent {
 
   public deleteAll(): void {
     if (confirm('are you sure you want to delete all???'))
-       this.todoService.deleteAllTodoList();
-    //localStorage.clear();
+      this.todoService.deleteAllTodoList();
   }
   public openArchiveList(): void {
     this.router.navigate(['/archive']);

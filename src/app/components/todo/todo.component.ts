@@ -8,19 +8,13 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.scss'],
 })
 export class TodoComponent implements OnInit {
-  
   @Input() set todo(todo: ITodo) {
     this._todo = todo;
-
   }
   @Input() todos: Array<ITodo> = [];
   get todo() {
     return this._todo;
   }
-
-  /*getTodo() {
-    return this._todo;
-  }*/
 
   private _todo: ITodo;
 
@@ -29,7 +23,6 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {}
 
   public onCompleteTodo(todo: ITodo): void {
-    
     todo.isCompleted = !todo.isCompleted;
     if (todo.isCompleted) {
       this.todoService.onTodoAction(this.todo.id, 'is completed');
@@ -39,27 +32,20 @@ export class TodoComponent implements OnInit {
   }
 
   public OnArchivedTodo(todo: ITodo): void {
-    if(confirm("are you sure you want to archived this Todo?")){
-    this.todo.isArchived = !this.todo.isArchived;
-    if (todo.isArchived) {
-      this.todoService.onTodoAction(this.todo.id, 'is archived');
-    } else {
-      this.todoService.onTodoAction(this.todo.id, 'is unArchived');
+    if (confirm('are you sure you want to archived this Todo?')) {
+      this.todo.isArchived = !this.todo.isArchived;
+      if (todo.isArchived) {
+        this.todoService.onTodoAction(this.todo.id, 'is archived');
+      } else {
+        this.todoService.onTodoAction(this.todo.id, 'is unArchived');
+      }
     }
   }
-  }
-  
- /* public OnArchivedTodo(): void {
-    this.todo.isArchived = !this.todo.isArchived;
-  const actionText = this.todo.isArchived ? 'Archived' : 'UnArchived';
-  this.todoService.onTodoAction(this.todo.id, `is ${actionText}`);
-  }*/
 
   public OnDeleteTodo(): void {
-    if(confirm("are you sure you want to delete this Todo?")){
-    this.todoService.deleteTodoById(this.todo.id);
-    this._todo = null;
-  }}
-
-  
+    if (confirm('are you sure you want to delete this Todo?')) {
+      this.todoService.deleteTodoById(this.todo.id);
+      this._todo = null;
+    }
+  }
 }

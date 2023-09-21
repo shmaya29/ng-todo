@@ -21,7 +21,6 @@ export class TodoListComponent implements OnInit {
         todo.selected = false;
       }
     });
-
     this.todos[index].selected = true;
   }
 }

@@ -11,8 +11,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
 
   @Input() set dDay(dDay: Date) {
     this._dDay = dDay;
-   // console.log(this._dDay);
-    
+    // console.log(this._dDay);
   }
   private subscription: Subscription = new Subscription();
   private _dDay: Date;

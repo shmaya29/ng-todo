@@ -29,7 +29,7 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-          todosFromApi[0].selected = true;
+          //todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
           this._singleTodoSubject.next(todosFromApi[0]);
         }
@@ -49,7 +49,7 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-          todosFromApi[0].selected = true;
+         // todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
           this._singleTodoSubject.next(todosFromApi[0]);
         }
@@ -69,7 +69,7 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-          todosFromApi[0].selected = true;
+          //todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
           this._singleTodoSubject.next(todosFromApi[0]);
         }
@@ -96,16 +96,25 @@ export class TodoService {
     this.http.post(this.apiURL, newTodo).subscribe();
   }
 
-  
+  /*public getSelectedTodo(): ITodo["id"] {
+    return null;
+  }*/
+
+  public setSelectedTodo(todo: ITodo): void {
+    const selected: string = todo.id
+    this._singleTodoSubject.next(todo);
+
+  }
+
   public getSelectedTodo(): Observable<ITodo> {
     return this._singleTodoSubject.asObservable();
   }
-
+/*
   public setSelectedTodo(todo: ITodo): void {
     this._singleTodoSubject.next(todo);
-  }
+  }*/
 
-
+  
   public async onTodoAction(todoId: string, action: string): Promise<void> {
     const existingTodo = this._todoSubject.value.find(
       (todo) => todo.id === todoId

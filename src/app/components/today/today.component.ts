@@ -18,7 +18,7 @@ export class TodayComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private todoService: TodoService) {}
 
   async ngOnInit(): Promise<void> {
-    this.subscription.add(
+   this.subscription.add(
       this.todoService.getSelectedTodo().subscribe((data) => {
         this.todo = data;
       })

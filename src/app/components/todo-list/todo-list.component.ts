@@ -9,12 +9,17 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class TodoListComponent implements OnInit {
   @Input() todos: Array<ITodo> = [];
-
+  selectedId: string;
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {}
 
-  public OnTodoClick(todo: ITodo, index: number): void {
+  public OnTodoClick(todo: ITodo): void {
+    this.todoService.setSelectedTodo(todo);
+    this.selectedId = todo.id;
+  }
+
+  /* public OnTodoClick(todo: ITodo, index: number): void {
     this.todoService.setSelectedTodo(todo);
     this.todos.forEach((todo) => {
       if (todo.selected) {
@@ -22,5 +27,5 @@ export class TodoListComponent implements OnInit {
       }
     });
     this.todos[index].selected = true;
-  }
+  }*/
 }

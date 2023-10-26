@@ -1,0 +1,28 @@
+<div class="search-container">
+  
+    <form class="search-form" (ngSubmit)="onSearch()">
+      <mat-form-field class="search-bar">
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          type="text"
+          matInput
+          placeholder="Search"
+          [(ngModel)]="todoByTitle"
+          name="searchTerm"
+        />
+        <button mat-button matSuffix type="submit">Search</button>
+      </mat-form-field>
+    </form>
+  
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+      <div class="list-container">
+        <app-todo-list [todos]="todos"></app-todo-list>
+      </div>
+      <div class="todo-container">
+        <app-todo [todo]="todo"> </app-todo>
+      </div>
+    </div>
+    
+  </div>
+  

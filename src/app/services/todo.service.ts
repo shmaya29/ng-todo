@@ -29,9 +29,8 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-          //todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
-          this._singleTodoSubject.next(todosFromApi[0]);
+          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -49,9 +48,8 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-         // todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
-          this._singleTodoSubject.next(todosFromApi[0]);
+          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -69,9 +67,8 @@ export class TodoService {
           this.http.get<Array<ITodo>>(this.apiURL)
         );
         if (todosFromApi && todosFromApi.length) {
-          //todosFromApi[0].selected = true;
           this._todoSubject.next(todosFromApi);
-          this._singleTodoSubject.next(todosFromApi[0]);
+          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -92,29 +89,49 @@ export class TodoService {
     );
   }
 
+  public async getTodosByTitle(title: string): Promise<Observable<ITodo[]>> {
+    if (!this._todoSubject.value.length) {
+      try {
+        const todosFromApi: Array<ITodo> = await firstValueFrom(
+          this.http.get<Array<ITodo>>(this.apiURL)
+        );
+        if (todosFromApi && todosFromApi.length) {
+          this._todoSubject.next(todosFromApi);
+          // this._singleTodoSubject.next(todosFromApi[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+    }
+    return this._todoSubject.pipe(
+      map((todos) => todos.filter((item) => 
+        item.title.includes(title) 
+      ))
+    );
+  }
+  
+  
+
   public addNewTodo(newTodo: ITodo): void {
-    this.http.post(this.apiURL, newTodo).subscribe();
+    this.http.post<ITodo>(this.apiURL, newTodo).subscribe({
+      next: (addedTodo) => {
+        const updatedTodos = [...this._todoSubject.value, addedTodo];
+        this._todoSubject.next(updatedTodos);
+      },
+      error: (error) => {
+        console.error('Error while adding todo:', error);
+      },
+    });
   }
 
-  /*public getSelectedTodo(): ITodo["id"] {
-    return null;
-  }*/
-
   public setSelectedTodo(todo: ITodo): void {
-    const selected: string = todo.id
     this._singleTodoSubject.next(todo);
-
   }
 
   public getSelectedTodo(): Observable<ITodo> {
     return this._singleTodoSubject.asObservable();
   }
-/*
-  public setSelectedTodo(todo: ITodo): void {
-    this._singleTodoSubject.next(todo);
-  }*/
 
-  
   public async onTodoAction(todoId: string, action: string): Promise<void> {
     const existingTodo = this._todoSubject.value.find(
       (todo) => todo.id === todoId
@@ -123,7 +140,8 @@ export class TodoService {
       console.error('Todo not found for id:', todoId);
       return;
     }
-    const updatedTodo = { ...existingTodo, [action]: true };
+    const updatedTodo = { ...existingTodo, [action]: !existingTodo[action] };
+    
     try {
       // Using the HttpClient with await
       await this.http.put(`${this.apiURL}/${todoId}`, updatedTodo).subscribe();
@@ -132,13 +150,14 @@ export class TodoService {
         todo.id === todoId ? updatedTodo : todo
       );
       this._todoSubject.next(updatedTodos);
+      this._singleTodoSubject.next(updatedTodo);
+
       console.log('Todo updated successfully');
     } catch (error) {
       console.error(todoId, error);
     }
   }
 
-  
   public deleteTodoById(todoId: string): void {
     const existingTodos: Array<ITodo> = this._todoSubject.value;
     const todoIndex = existingTodos.findIndex(

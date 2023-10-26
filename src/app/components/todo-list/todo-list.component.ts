@@ -18,14 +18,4 @@ export class TodoListComponent implements OnInit {
     this.todoService.setSelectedTodo(todo);
     this.selectedId = todo.id;
   }
-
-  /* public OnTodoClick(todo: ITodo, index: number): void {
-    this.todoService.setSelectedTodo(todo);
-    this.todos.forEach((todo) => {
-      if (todo.selected) {
-        todo.selected = false;
-      }
-    });
-    this.todos[index].selected = true;
-  }*/
 }

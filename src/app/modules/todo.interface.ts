@@ -6,5 +6,4 @@ export interface ITodo {
   isCompleted: boolean;
   isArchived: boolean;
   endDate: Date;
- // selected: boolean;
 }

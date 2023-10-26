@@ -32,7 +32,13 @@ export class TodoComponent implements OnInit {
   }
 
   public OnArchivedTodo(todo: ITodo): void {
-    if (confirm('are you sure you want to archived this Todo?')) {
+    let archiveAction: String;
+    if(todo.isArchived === false){
+      archiveAction = "archived"
+    } else{
+      archiveAction = "unArchived"
+    }
+    if (confirm(`Are you sure you want to ${archiveAction} this Todo?`)) {
       this.todo.isArchived = !this.todo.isArchived;
       if (todo.isArchived) {
         this.todoService.onTodoAction(this.todo.id, 'is archived');

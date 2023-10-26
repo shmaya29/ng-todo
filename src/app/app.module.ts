@@ -17,6 +17,8 @@ import { RouterModule } from '@angular/router';
 import { TodayComponent } from './components/today/today.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     CountDownComponent,
     ArchiveComponent,
     TodayComponent,
+    FooterComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

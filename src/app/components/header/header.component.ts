@@ -25,4 +25,8 @@ export class HeaderComponent {
   public openToday(): void {
     this.router.navigate(['/today']);
   }
+
+  public openSearch(): void {
+    this.router.navigate(['/search']);
+  }
 }

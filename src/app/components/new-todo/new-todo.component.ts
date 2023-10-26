@@ -28,10 +28,10 @@ export class NewTodoComponent implements OnInit {
         isCompleted: false,
         isArchived: false,
         endDate: formValue.date,
-        //selected: false,
       };
 
       this.todoService.addNewTodo(newTodo);
+      
       this.dialog.closeAll();
     }
   }

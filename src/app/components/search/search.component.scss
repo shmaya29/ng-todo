@@ -2,7 +2,7 @@
   padding: 10px;
   height: calc(100vh - 84px);
   display: flex;
-  flex-direction: column; // stack main sections vertically
+  flex-direction: column;
   gap: 10px;
   background-color: rgb(128, 132, 57);
 
@@ -13,18 +13,17 @@
   }
 
   .search-bar {
-    flex-grow: 1; // take available space
-    max-width: 400px; // or any other desired max-width
+    flex-grow: 1;
+    max-width: 400px;
 
     button {
-      margin-left: 10px; // space between the input and button
+      margin-left: 10px;
     }
   }
 
-  // This will make list-container and todo-container align side by side
   .content-wrapper {
-    display: flex; // display as flex to align children side by side
-    width: 100%; // take the full width of the parent
+    display: flex;
+    width: 100%;
 
     .list-container {
       width: 25%;

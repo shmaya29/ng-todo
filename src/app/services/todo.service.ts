@@ -30,7 +30,6 @@ export class TodoService {
         );
         if (todosFromApi && todosFromApi.length) {
           this._todoSubject.next(todosFromApi);
-          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -49,7 +48,6 @@ export class TodoService {
         );
         if (todosFromApi && todosFromApi.length) {
           this._todoSubject.next(todosFromApi);
-          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -68,7 +66,6 @@ export class TodoService {
         );
         if (todosFromApi && todosFromApi.length) {
           this._todoSubject.next(todosFromApi);
-          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -97,20 +94,15 @@ export class TodoService {
         );
         if (todosFromApi && todosFromApi.length) {
           this._todoSubject.next(todosFromApi);
-          // this._singleTodoSubject.next(todosFromApi[0]);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
       }
     }
     return this._todoSubject.pipe(
-      map((todos) => todos.filter((item) => 
-        item.title.includes(title) 
-      ))
+      map((todos) => todos.filter((item) => item.title.includes(title)))
     );
   }
-  
-  
 
   public addNewTodo(newTodo: ITodo): void {
     this.http.post<ITodo>(this.apiURL, newTodo).subscribe({
@@ -141,11 +133,9 @@ export class TodoService {
       return;
     }
     const updatedTodo = { ...existingTodo, [action]: !existingTodo[action] };
-    
+
     try {
-      // Using the HttpClient with await
       await this.http.put(`${this.apiURL}/${todoId}`, updatedTodo).subscribe();
-      // If the above line succeeds, then update the local state.
       const updatedTodos = this._todoSubject.value.map((todo) =>
         todo.id === todoId ? updatedTodo : todo
       );
@@ -167,7 +157,6 @@ export class TodoService {
       existingTodos.splice(todoIndex, 1);
       this.http.delete(`${this.apiURL}/${todoId}`).subscribe(
         (response) => {
-          // Upon successful update on the server, update the local state.
           this._todoSubject.next(existingTodos);
         },
         (error) => {
